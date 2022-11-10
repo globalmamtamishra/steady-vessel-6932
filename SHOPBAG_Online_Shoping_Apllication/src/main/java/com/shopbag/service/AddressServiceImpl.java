@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shopbag.exception.AddressException;
-import com.shopbag.module.Address;
+import com.shopbag.model.Address;
 import com.shopbag.repository.AddressDao;
 
 @Service

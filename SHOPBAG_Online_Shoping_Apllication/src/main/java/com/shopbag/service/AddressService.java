@@ -3,7 +3,7 @@ package com.shopbag.service;
 import java.util.List;
 
 import com.shopbag.exception.AddressException;
-import com.shopbag.module.Address;
+import com.shopbag.model.Address;
 
 
 

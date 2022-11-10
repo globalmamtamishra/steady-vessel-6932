@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopbag.exception.AddressException;
-import com.shopbag.module.Address;
+import com.shopbag.model.Address;
 import com.shopbag.service.AddressService;
 
 @RestController

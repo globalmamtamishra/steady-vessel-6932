@@ -1,4 +1,4 @@
-package com.shopbag.controller;
+package com.shopbag.presentation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
