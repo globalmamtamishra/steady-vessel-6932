@@ -31,7 +31,7 @@ public class Order {
 		this.orderId = orderId;
 		this.orderDate = orderDate;
 		this.orderStatus = orderStatus;
-		this.customer = cutomer;
+		this.cutomer = cutomer;
 		this.productList = productList;
 		this.address = address;
 	}
