@@ -3,6 +3,7 @@ package com.shopbag.model;
 import java.time.LocalDate;
 import java.util.Map;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,8 +16,11 @@ public class Order {
 	private String orderId;
 	private LocalDate orderDate;
 	private String orderStatus;
+	
 	private Customer cutomer;
 	private Map<Integer, Product> productList;
+	
+	@Embedded
 	private Address address;
 	
 	public Order() {}
