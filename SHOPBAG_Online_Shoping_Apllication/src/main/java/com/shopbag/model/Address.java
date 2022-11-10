@@ -1,4 +1,4 @@
-package com.shopbag.module;
+package com.shopbag.model;
 
 
 import javax.persistence.Entity;
