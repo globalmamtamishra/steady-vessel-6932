@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class order {
+public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String orderId;
@@ -18,6 +18,4 @@ public class order {
 	private Customer cutomer;
 	private Map productList;
 	private Address address;
-	
-	
 }
