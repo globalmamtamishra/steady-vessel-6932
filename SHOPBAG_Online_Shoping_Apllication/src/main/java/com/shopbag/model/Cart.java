@@ -21,13 +21,13 @@ public class Cart {
 	private Customer cutomer;
 	
 //	@NotNull(message = "Please select atleast one product")
-	private Map<Integer, Product> products;
+	private Map<Product, Integer> products;
 	
 	public Cart() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Cart(String cartId, Customer cutomer, Map<Integer, Product> products) {
+	public Cart(String cartId, Customer cutomer, Map<Product, Integer> products) {
 		super();
 		this.cartId = cartId;
 		this.cutomer = cutomer;
@@ -50,11 +50,11 @@ public class Cart {
 		this.cutomer = cutomer;
 	}
 
-	public Map<Integer, Product> getProducts() {
+	public Map<Product, Integer> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Map<Integer, Product> products) {
+	public void setProducts(Map<Product, Integer> products) {
 		this.products = products;
 	}
 
@@ -62,5 +62,7 @@ public class Cart {
 	public String toString() {
 		return "Cart [cartId=" + cartId + ", cutomer=" + cutomer + ", products=" + products + "]";
 	}
+
+	
 	
 }

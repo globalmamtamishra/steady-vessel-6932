@@ -1,5 +1,7 @@
 package com.shopbag.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.shopbag.exception.CartException;
@@ -15,7 +17,16 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Cart addProductToCart(Cart cart, Product product, Integer quantity) throws CartException {
 		
-		cartRepo.
+		Optional<Cart> opt = cartRepo.findById(cart.getCartId()); // findbyId return optional
+		 
+		 if(opt.isPresent()) {
+			 Cart cartPresent = opt.get();
+			 
+			 cartPresent.getProducts().put(quantity, product)
+			 return cart;
+		 } else {
+			 throw new CartException("");
+		 }
 
 	}
 
