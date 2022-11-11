@@ -7,7 +7,7 @@ import com.shopbag.model.Product;
 
 public interface ProductService {
 
-	public List<Product> viewAllProduct();
+	public List<Product> viewAllProduct() throws ProductException;
 	
 	public Product addProduct(Product pdt) throws ProductException;
 	
