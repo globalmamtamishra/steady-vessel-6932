@@ -94,7 +94,7 @@ public class CartServiceImpl implements CartService {
 		if(opt.isPresent()) {
 			
 			Cart nCart = opt.get();
-			return nCart.getProducts();
+			return nCart;
 			
 		} else {
 			throw new CartException("Cart details is invalid.");
