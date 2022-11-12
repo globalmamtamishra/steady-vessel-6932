@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import com.shopbag.model.Customer;
 
 @Repository
-public interface CustomerRepo extends JpaRepository<Customer, String> {
+public interface CustomerRepo extends JpaRepository<Customer, Integer> {
 
 	List<Customer> viewAllCustomer(String location);
+	
+	Customer findByEmail(String email);
 	
 }
