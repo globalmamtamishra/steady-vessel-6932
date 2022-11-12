@@ -1,95 +1,78 @@
 package com.shopbag.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String customerId;
+	private Integer customerId;
+	
+	@NotNull(message = "firstName required to fill")
 	private String firstName;
+	
+	@NotNull(message = "lastname required to fill")
 	private String lastname;
+	
+	@NotNull(message = "mobileNumber required to fill")
 	private String mobileNumber;
-	private Address address;
+	
+	@NotNull(message = "email required to fill")
 	private String email;
 	
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
+	private Address address;
 	
-	public Customer() {
-		// TODO Auto-generated constructor stub
-	}
 	
-	public Customer(String customerId, String firstName, String lastname, String mobileNumber, Address address,
-			String email) {
-		super();
-		this.customerId = customerId;
-		this.firstName = firstName;
-		this.lastname = lastname;
-		this.mobileNumber = mobileNumber;
-		this.address = address;
-		this.email = email;
-	}
-
-	public String getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public String getMobileNumber() {
-		return mobileNumber;
-	}
-
-	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Override
-	public String toString() {
-		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastname=" + lastname
-				+ ", mobileNumber=" + mobileNumber + ", address=" + address + ", email=" + email + "]";
-	}
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Order> order = new ArrayList<>();
+	
 	
 	
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
