@@ -3,6 +3,8 @@ package com.shopbag.presentation;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,48 +25,48 @@ import com.shopbag.service.CustomerServiceImpl;
 public class CustomerContorller {
 
 	@Autowired
-	private CustomerServiceImpl cImpl;
+	private CustomerServiceImpl cService;
 	
-	@PostMapping("/saveCustomer")
-	public ResponseEntity<Customer> addCustomerHandler(@RequestBody Customer cust) throws CustomerException{
+	@PostMapping("/customers")
+	public ResponseEntity<Customer> addCustomerHandler( @RequestBody Customer cust) throws CustomerException{
 		
-		Customer saveCustomer = cImpl.addCustomer(cust);
+		Customer saveCustomer = cService.addCustomer(cust);
 		
 		return new ResponseEntity<Customer>(saveCustomer, HttpStatus.CREATED);
 	}
 	
 	
-	@PutMapping("/updateCustomer")
-	public ResponseEntity<Customer> updateCustomerHandler(@RequestBody Customer cust) throws CustomerException{
+	@PutMapping("/customer/{key}")
+	public ResponseEntity<Customer> updateCustomerHandler(@Valid @RequestBody Customer cust, @PathVariable String key) throws CustomerException{
 		
-		Customer updateCustomer = cImpl.updateCustomer(cust);
+		Customer updateCustomer = cService.updateCustomer(cust, key);
 		
 		return new ResponseEntity<Customer>(updateCustomer, HttpStatus.CREATED);
 	}
 	
 	
-	@DeleteMapping("/deleteCustomer")
-	public ResponseEntity<Customer> removeCustomerHandler(@RequestBody Customer cust) throws CustomerException{
+	@DeleteMapping("/customers/{key}")
+	public ResponseEntity<Customer> removeCustomerHandler(@RequestBody Customer cust, @PathVariable String key) throws CustomerException{
 		
-		Customer removeCustomer = cImpl.removeCustomer(cust);
+		Customer removeCustomer = cService.removeCustomer(cust, key);
 		
 		return new ResponseEntity<Customer>(removeCustomer, HttpStatus.CREATED);
 	}
 	
 	
-	@GetMapping("/getCustomer")
+	@GetMapping("/customers")
 	public ResponseEntity<Customer> viewCustomerHandler(@PathVariable Customer cust) throws CustomerException{
 		
-		Customer viewCustomer = cImpl.viewCustomer(cust);
+		Customer viewCustomer = cService.viewCustomer(cust);
 		
 		return new ResponseEntity<Customer>(viewCustomer, HttpStatus.CREATED);
 	}
 	
 	
-	@GetMapping("/getAllCustomer/{location}")
+	@GetMapping("/customers/{location}")
 	public ResponseEntity<List<Customer>> viewAllCustomerHandler(@PathVariable String location )throws CustomerException{
 		
-		List<Customer> viewAllCustomer = cImpl.viewAllCustomer(location);
+		List<Customer> viewAllCustomer = cService.viewAllCustomer(location);
 		
 		return new ResponseEntity<List<Customer>>(viewAllCustomer, HttpStatus.CREATED);
 	}

@@ -19,7 +19,7 @@ public class AddressServiceImpl implements AddressService {
 	public Address addAddress(Address address) throws AddressException {
 
 //		Optional<Address> newAddress = addressDao.findById(address.getAddressId());
-		
+
 		Address newAddress = addressDao.save(address);
 
 //		if (!newAddress.isPresent()) {
@@ -46,16 +46,16 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public Address removeAddress(Address address) throws AddressException {
-		
-	Optional<Address> ad = addressDao.findById(address.getAddressId());
-		
-		if(ad.isPresent()) {
+
+		Optional<Address> ad = addressDao.findById(address.getAddressId());
+
+		if (ad.isPresent()) {
 			addressDao.delete(address);
 			return address;
 		}
-		
-		throw new AddressException("address not found with id "+address.getAddressId());
-		
+
+		throw new AddressException("address not found with id " + address.getAddressId());
+
 	}
 
 	@Override
@@ -72,8 +72,17 @@ public class AddressServiceImpl implements AddressService {
 
 	@Override
 	public Address viewAddress(Integer customerId) throws AddressException {
-		// TODO Auto-generated method stub
-		return null;
+
+		Optional<Address> customer = addressDao.findById(customerId);
+
+		if (!customer.isPresent()) {
+
+			throw new AddressException("No customer found with id : " + customerId);
+		}
+
+		Address address = customer.get();
+
+		return address;
 	}
 
 }

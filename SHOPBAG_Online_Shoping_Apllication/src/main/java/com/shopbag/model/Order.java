@@ -1,92 +1,48 @@
 package com.shopbag.model;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.List;
 
-import javax.persistence.Embedded;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "orders")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String orderId;
+	private Integer orderId;
+	
+	@NotNull(message = "{date.invalid}")
 	private LocalDate orderDate;
+	
+	@NotNull(message = "{status.invalid}")
 	private String orderStatus;
 	
-	private Customer cutomer;
-	private Map<Integer, Product> productList;
+	@NotNull(message = "{customer.invalid}")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Customer customer;
 	
-	@Embedded
+	@NotNull(message = "{product.invalid}")
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "order")
+	private List<Product> productList;
+	
+	@NotNull(message = "{address.invalid}")
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
-	public Order() {}
-
-	public Order(String orderId, LocalDate orderDate, String orderStatus, Customer cutomer,
-			Map<Integer, Product> productList, Address address) {
-		super();
-		this.orderId = orderId;
-		this.orderDate = orderDate;
-		this.orderStatus = orderStatus;
-		this.cutomer = cutomer;
-		this.productList = productList;
-		this.address = address;
-	}
-
-	public String getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
-
-	public LocalDate getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(LocalDate orderDate) {
-		this.orderDate = orderDate;
-	}
-
-	public String getOrderStatus() {
-		return orderStatus;
-	}
-
-	public void setOrderStatus(String orderStatus) {
-		this.orderStatus = orderStatus;
-	}
-
-	public Customer getCutomer() {
-		return cutomer;
-	}
-
-	public void setCutomer(Customer cutomer) {
-		this.cutomer = cutomer;
-	}
-
-	public Map<Integer, Product> getProductList() {
-		return productList;
-	}
-
-	public void setProductList(Map<Integer, Product> productList) {
-		this.productList = productList;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	@Override
-	public String toString() {
-		return "Order [orderId=" + orderId + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", cutomer="
-				+ cutomer + ", productList=" + productList + ", address=" + address + "]";
-	}
 }

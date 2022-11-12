@@ -9,9 +9,9 @@ public interface CustomerService {
 
 	Customer addCustomer(Customer cust) throws CustomerException;
 	
-	Customer updateCustomer(Customer cust) throws CustomerException;
+	Customer updateCustomer(Customer cust, String key) throws CustomerException;
 	
-	Customer removeCustomer(Customer cust) throws CustomerException;
+	Customer removeCustomer(Customer cust, String key) throws CustomerException;
 	
 	Customer viewCustomer(Customer cust) throws CustomerException;
 	

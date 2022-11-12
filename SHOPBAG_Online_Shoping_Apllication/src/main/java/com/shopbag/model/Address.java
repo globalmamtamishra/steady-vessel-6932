@@ -1,19 +1,25 @@
 package com.shopbag.model;
 
 
-import javax.persistence.Entity;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-
-
-
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Address")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 	
     @Id
@@ -37,120 +43,9 @@ public class Address {
 //    @NotNull(message = "pincode cannot be left blank")
 	private String pincode;
 	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="address")
+	private List<Customer> Customer;
 	
-	
-	public Address() {
-		super();
-		
-	}
-
-
-
-	public Address(Integer addressId, String streetNo, String buildingName, String city, String state, String country,
-			String pincode) {
-		super();
-		this.addressId = addressId;
-		this.streetNo = streetNo;
-		this.buildingName = buildingName;
-		this.city = city;
-		this.state = state;
-		this.country = country;
-		this.pincode = pincode;
-	}
-
-
-
-	public Integer getAddressId() {
-		return addressId;
-	}
-
-
-
-	public void setAddressId(Integer addressId) {
-		this.addressId = addressId;
-	}
-
-
-
-	public String getStreetNo() {
-		return streetNo;
-	}
-
-
-
-	public void setStreetNo(String streetNo) {
-		this.streetNo = streetNo;
-	}
-
-
-
-	public String getBuildingName() {
-		return buildingName;
-	}
-
-
-
-	public void setBuildingName(String buildingName) {
-		this.buildingName = buildingName;
-	}
-
-
-
-	public String getCity() {
-		return city;
-	}
-
-
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-
-
-	public String getState() {
-		return state;
-	}
-
-
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-
-
-	public String getCountry() {
-		return country;
-	}
-
-
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-
-
-	public String getPincode() {
-		return pincode;
-	}
-
-
-
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "Address [addressId=" + addressId + ", streetNo=" + streetNo + ", buildingName=" + buildingName
-				+ ", city=" + city + ", state=" + state + ", country=" + country + ", pincode=" + pincode + "]";
-	}
-	
-	
-	
-	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy="address")
+	private List<Order> order;
 }
