@@ -17,12 +17,13 @@ import com.shopbag.exception.CartException;
 import com.shopbag.model.Cart;
 import com.shopbag.model.Product;
 import com.shopbag.service.CartService;
+import com.shopbag.service.CartServiceImpl;
 
 @RestController
 public class CartController {
 	
 	@Autowired
-	private CartService cartService;
+	private CartServiceImpl cartService;
 	
 	@PostMapping("/addProductToCart")
 	public ResponseEntity<Cart> addProductToCart(@RequestBody Cart cart) throws CartException {
