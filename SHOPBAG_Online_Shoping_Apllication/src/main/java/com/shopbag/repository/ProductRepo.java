@@ -11,6 +11,6 @@ import com.shopbag.model.Product;
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Integer>{
 
-	@Query("select p from Product p where categoryName=?1")
+	@Query("select p from Product p where category IN(select c from Category c where c.categoryName=?1)")
 	public List<Product> getProductByCategory(String cName);
 }
