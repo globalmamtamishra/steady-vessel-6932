@@ -1,16 +1,14 @@
 package com.shopbag.model;
 
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 
-@Entity
+@Embeddable
 public class Customer {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String customerId;
 	private String firstName;
 	private String lastname;
