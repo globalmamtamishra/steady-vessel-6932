@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shopbag.exception.AddressException;
 import com.shopbag.model.Address;
+import com.shopbag.model.Customer;
+import com.shopbag.model.Order;
 import com.shopbag.service.AddressService;
 
 @RestController
@@ -27,7 +29,7 @@ public class AddressController {
 	private AddressService addressService;
 	
 	@PostMapping("/saveaddress")
-	public ResponseEntity<Address> addAddress(@Valid @RequestBody Address address)throws AddressException{
+	public ResponseEntity<Address> addAddress( @RequestBody Address address, @RequestBody Order order, @RequestBody Customer customer)throws AddressException{
 		
 		
 		Address savedAddress= addressService.addAddress(address);

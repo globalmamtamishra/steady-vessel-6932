@@ -1,6 +1,7 @@
 package com.shopbag.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shopbag.exception.OrderException;
+import com.shopbag.model.Customer;
 import com.shopbag.model.Order;
+import com.shopbag.repository.CustomerRepo;
 import com.shopbag.repository.OrderRepository;
 
 @Service
@@ -16,6 +19,9 @@ public class OrderDaoImpl implements OrderService {
 
 	@Autowired
 	public OrderRepository orderRepo;
+	
+	@Autowired
+	public CustomerRepo customerRepo;
 
 	@Override
 	public Order addOrder(Order order) {
@@ -89,8 +95,24 @@ public class OrderDaoImpl implements OrderService {
 
 	@Override
 	public List<Order> viewAllOrdersByuserId(String userId) throws OrderException {
-		List<Order> listOfOrdersByUserId = orderRepo.getAllOrdersByUserId(userId);
-
+		Optional<Customer> opt = customerRepo.findById(Integer.parseInt(userId));
+		
+		if(! opt.isPresent()) {
+			throw new OrderException("Customer not present...");
+		}
+		
+		Customer c = opt.get();
+		
+		List<Order> orders = orderRepo.findAll();
+		
+		List<Order> listOfOrdersByUserId = new ArrayList<>();
+		
+		for(Order o : orders) {
+			if(o.getCustomer().getCustomerId() == c.getCustomerId()) {
+				listOfOrdersByUserId.add(o);
+			}
+		}
+				
 		if (listOfOrdersByUserId.size() == 0) {
 			throw new OrderException("No orders found from the user id: " + userId);
 		} else {

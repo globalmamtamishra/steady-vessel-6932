@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
@@ -27,20 +28,20 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer customerId;
 	
-	@NotNull(message = "firstName required to fill")
+	//@NotNull(message = "firstName required to fill")
 	private String firstName;
 	
-	@NotNull(message = "lastname required to fill")
+	//@NotNull(message = "lastname required to fill")
 	private String lastname;
 	
-	@NotNull(message = "mobileNumber required to fill")
+	//@NotNull(message = "mobileNumber required to fill")
 	private String mobileNumber;
 	
-	@NotNull(message = "email required to fill")
+	//@NotNull(message = "email required to fill")
 	private String email;
 	
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "customer")
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
 	
@@ -48,6 +49,8 @@ public class Customer {
 	private List<Order> order = new ArrayList<>();
 	
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Cart cart;
 	
 	
 	

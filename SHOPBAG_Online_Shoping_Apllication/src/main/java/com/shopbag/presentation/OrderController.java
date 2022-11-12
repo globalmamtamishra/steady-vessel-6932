@@ -26,49 +26,49 @@ public class OrderController {
 	public OrderService os;
 
 	@PostMapping("/addOrder")
-	public ResponseEntity<Order> addOrderHandler(@Valid @RequestBody Order order) {
+	public ResponseEntity<Order> addOrderHandler(@RequestBody Order order) {
 		Order addedOrder = os.addOrder(order);
 
 		return new ResponseEntity<Order>(addedOrder, HttpStatus.OK);
 	}
 
 	@PutMapping("/updateOrder")
-	public ResponseEntity<Order> updateOrderHandler(@Valid @RequestBody Order order) throws OrderException {
+	public ResponseEntity<Order> updateOrderHandler(@RequestBody Order order) throws OrderException {
 		Order updatedOrder = os.updateOrder(order);
 
 		return new ResponseEntity<Order>(updatedOrder, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/deleteOrder")
-	public ResponseEntity<Order> removeOrderHandler(@Valid @RequestBody Order order) throws OrderException {
+	public ResponseEntity<Order> removeOrderHandler(@RequestBody Order order) throws OrderException {
 		Order deletedOrder = os.removeOrder(order);
 
 		return new ResponseEntity<Order>(deletedOrder, HttpStatus.OK);
 	}
 
 	@GetMapping("/viewOrder")
-	public ResponseEntity<Order> viewOrderHandler(@Valid @RequestBody Order order) throws OrderException {
+	public ResponseEntity<Order> viewOrderHandler(@RequestBody Order order) throws OrderException {
 		Order ord = os.viewOrder(order);
 
 		return new ResponseEntity<Order>(ord, HttpStatus.OK);
 	}
 
 	@GetMapping("/viewOrders/{date}")
-	public ResponseEntity<List<Order>> viewAllOrdersHandler(@Valid @PathVariable("date") LocalDate date) throws OrderException {
+	public ResponseEntity<List<Order>> viewAllOrdersHandler(@PathVariable("date") LocalDate date) throws OrderException {
 		List<Order> listOfOrders = os.viewAllOrders(date);
 
 		return new ResponseEntity<List<Order>>(listOfOrders, HttpStatus.OK);
 	}
 
 	@GetMapping("/viewOrdersByLocation/{loc}")
-	public ResponseEntity<List<Order>> viewAllOrdersByLocationHandler(@Valid @PathVariable("loc") String loc) throws OrderException {
+	public ResponseEntity<List<Order>> viewAllOrdersByLocationHandler(@PathVariable("loc") String loc) throws OrderException {
 		List<Order> ordersListByLocation = os.viewAllOrdersByLocation(loc);
 
 		return new ResponseEntity<List<Order>>(ordersListByLocation, HttpStatus.OK);
 	}
 
 	@GetMapping("/viewOrdersByUserId")
-	public ResponseEntity<List<Order>> viewAllOrdersByuserIdHandler(@Valid @RequestBody String userId) throws OrderException {
+	public ResponseEntity<List<Order>> viewAllOrdersByuserIdHandler(@RequestBody String userId) throws OrderException {
 		List<Order> ordersListByUserId = os.viewAllOrdersByuserId(userId);
 
 		return new ResponseEntity<List<Order>>(ordersListByUserId, HttpStatus.OK);

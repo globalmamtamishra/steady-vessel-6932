@@ -101,7 +101,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public List<Customer> viewAllCustomer(String location) throws CustomerException {
 		
-		List<Customer> customers = addressRepo.findByLocation(location);
+		List<Customer> customers = customerRepo.viewAllCustomer(location);
 		
 		if(customers.isEmpty())
 			throw new CustomerException("Customer not found with this location: "+location);

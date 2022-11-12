@@ -28,7 +28,7 @@ public class CustomerContorller {
 	private CustomerServiceImpl cService;
 	
 	@PostMapping("/customers")
-	public ResponseEntity<Customer> addCustomerHandler(@Valid @RequestBody Customer cust) throws CustomerException{
+	public ResponseEntity<Customer> addCustomerHandler( @RequestBody Customer cust) throws CustomerException{
 		
 		Customer saveCustomer = cService.addCustomer(cust);
 		

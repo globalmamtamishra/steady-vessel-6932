@@ -25,9 +25,9 @@ public class CartController {
 	private CartService cartService;
 	
 	@PostMapping("/addProductToCart")
-	public ResponseEntity<Cart> addProductToCart(@Valid @RequestBody Cart cart, @Valid @RequestBody Product product, @RequestParam Integer quantity) throws CartException {
+	public ResponseEntity<Cart> addProductToCart(@RequestBody Cart cart) throws CartException {
 		
-		Cart nCart = cartService.addProductToCart(cart, product, quantity);
+		Cart nCart = cartService.addProductToCart(cart, cart.getProduct());
 		
 		return new ResponseEntity<Cart>(nCart, HttpStatus.ACCEPTED);
 		
@@ -43,9 +43,9 @@ public class CartController {
 	}
 	
 	@PutMapping("/updateProductQuantity")
-	public ResponseEntity<Cart> updateProductQuantity(@Valid @RequestBody Cart cart, @Valid @RequestBody Product product, @RequestParam Integer quantity) throws CartException{
+	public ResponseEntity<Cart> updateProductQuantity(@Valid @RequestBody Cart cart, @Valid @RequestBody Product product) throws CartException{
 		
-		Cart nCart = cartService.updateProductQuantity(cart, product, quantity);
+		Cart nCart = cartService.plusProductQuantity(cart, product);
 		
 		return new ResponseEntity<Cart>(nCart, HttpStatus.ACCEPTED);
 		

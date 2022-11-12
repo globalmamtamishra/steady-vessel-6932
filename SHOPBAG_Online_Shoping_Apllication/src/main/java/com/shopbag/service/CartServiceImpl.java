@@ -1,5 +1,4 @@
 package com.shopbag.service;
-
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -15,20 +14,19 @@ public class CartServiceImpl implements CartService {
 	private CartRepo cartRepo;
 
 	@Override
-	public Cart addProductToCart(Cart cart, Product product, Integer quantity) throws CartException {
+	public Cart addProductToCart(Cart cart, Product product) throws CartException {
 		
 		Optional<Cart> opt = cartRepo.findById(cart.getCartId()); // findbyId return optional
 		
 		
 		if(opt.isPresent()) {
-			cart.getProducts().put(product, quantity);
+			cart.getProducts().add(product);
+			return cart;
 		} else {
-			cart.getProducts().put(product, quantity);
+			cart.getProducts().add(product);
 			return cartRepo.save(cart);
 		}	 
 		 
-		return cart;
-
 	}
 
 	@Override
@@ -39,7 +37,7 @@ public class CartServiceImpl implements CartService {
 		if(opt.isPresent()) {
 			Cart nCart = opt.get();
 			
-			if(nCart.getProducts().containsKey(product)) {
+			if(nCart.getProducts().contains(product)) {
 				nCart.getProducts().remove(product);
 				return nCart;
 			} else {
@@ -52,24 +50,22 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart updateProductQuantity(Cart cart, Product product, Integer quantity) throws CartException {
+	public Cart plusProductQuantity(Cart cart, Product product) throws CartException {
 		
 		Optional<Cart> opt = cartRepo.findById(cart.getCartId()); // findbyId return optional
 		
 		if(opt.isPresent()) {
+			
 			Cart nCart = opt.get();
 			
-			if(nCart.getProducts().containsKey(product)) {
-				nCart.getProducts().computeIfPresent(product, (k, v) -> v + quantity);
-				return nCart;
-			} else {
-				throw new CartException("Product is not present in your cart.");
-			}
+			nCart.getProducts().add(product);
+			return nCart;
 			
 		} else {
 			throw new CartException("Cart details is invalid.");
 		}
 	}
+
 
 	@Override
 	public Cart removeAllProducts(Cart cart) throws CartException {

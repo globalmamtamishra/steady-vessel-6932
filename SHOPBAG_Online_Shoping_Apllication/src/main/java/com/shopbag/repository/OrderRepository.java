@@ -17,6 +17,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
 	@Query("select o from Order o where o.address = (select a from Address a where a.city=?1)")
 	public List<Order> getAllOrdersByLocation(String loc);
 	
-	@Query("select o from Order o where o.customer = (select c from Customer c where c.userId=?1)")
-	public List<Order> getAllOrdersByUserId(String userId);
+//	@Query("select o from Order o where o.customer = (select c from Customer c where c.userId=?1)")
+//	public List<Order> getAllOrdersByUserId(String userId);
 }
