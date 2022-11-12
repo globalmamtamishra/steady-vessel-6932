@@ -35,18 +35,18 @@ public class CartController {
 	}
 	
 	@DeleteMapping("/removeProductFromCart")
-	public ResponseEntity<Cart> removeProductFromCart(@Valid @RequestBody Cart cart, @Valid @RequestBody Product product) throws CartException {
+	public ResponseEntity<Cart> removeProductFromCart(@Valid @RequestBody Cart cart) throws CartException {
 		
-		Cart nCart = cartService.removeProductFromCart(cart, product);
+		Cart nCart = cartService.removeProductFromCart(cart, cart.getProduct());
 		
 		return new ResponseEntity<Cart>(nCart, HttpStatus.OK);
 		
 	}
 	
 	@PutMapping("/updateProductQuantity")
-	public ResponseEntity<Cart> updateProductQuantity(@Valid @RequestBody Cart cart, @Valid @RequestBody Product product) throws CartException{
+	public ResponseEntity<Cart> updateProductQuantity(@Valid @RequestBody Cart cart) throws CartException{
 		
-		Cart nCart = cartService.plusProductQuantity(cart, product);
+		Cart nCart = cartService.plusProductQuantity(cart, cart.getProduct());
 		
 		return new ResponseEntity<Cart>(nCart, HttpStatus.ACCEPTED);
 		
