@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,9 +35,11 @@ public class Product {
 	private int quantity;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Cart cart;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Order> order;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
