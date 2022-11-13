@@ -29,7 +29,7 @@ public class CustomerContorller {
 	private CustomerServiceImpl cService;
 	
 	@PostMapping("/customers")
-	public ResponseEntity<Customer> addCustomerHandler( @RequestBody Customer cust) throws CustomerException{
+	public ResponseEntity<Customer> addCustomerHandler(@Valid @RequestBody Customer cust) throws CustomerException{
 		
 		Customer saveCustomer = cService.addCustomer(cust);
 		
@@ -38,7 +38,7 @@ public class CustomerContorller {
 	
 	
 	@PutMapping("/customer/{key}")
-	public ResponseEntity<Customer> updateCustomerHandler( @RequestBody Customer cust, @PathVariable String key) throws CustomerException{
+	public ResponseEntity<Customer> updateCustomerHandler(@Valid @RequestBody Customer cust, @PathVariable String key) throws CustomerException{
 		
 		Customer updateCustomer = cService.updateCustomer(cust, key);
 		
