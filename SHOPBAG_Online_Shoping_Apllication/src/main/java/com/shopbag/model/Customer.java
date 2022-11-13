@@ -45,7 +45,7 @@ public class Customer {
 	@NotNull(message = "password required to fill")
 	private String password;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
 	

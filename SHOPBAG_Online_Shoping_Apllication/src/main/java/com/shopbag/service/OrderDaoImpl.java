@@ -1,5 +1,6 @@
 package com.shopbag.service;
 
+import java.lang.StackWalker.Option;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shopbag.exception.OrderException;
+import com.shopbag.model.Address;
 import com.shopbag.model.Customer;
 import com.shopbag.model.Order;
+import com.shopbag.repository.AddressDao;
+import com.shopbag.repository.CurrentUserSessionRepo;
 import com.shopbag.repository.CustomerRepo;
 import com.shopbag.repository.OrderRepository;
 
@@ -19,35 +23,78 @@ public class OrderDaoImpl implements OrderService {
 
 	@Autowired
 	public OrderRepository orderRepo;
-	
+
 	@Autowired
 	public CustomerRepo customerRepo;
 
-	@Override
-	public Order addOrder(Order order) {
-		Order ord = orderRepo.save(order);
+	@Autowired
+	public AddressDao addressDao;
 
-		return ord;
+	@Autowired
+	public CurrentUserSessionRepo currentUserDao;
+
+	@Override
+	public Order addOrder(Order order, Integer customerId) throws OrderException {
+		Optional<Customer> opt = customerRepo.findById(customerId);
+
+		if (opt.isPresent()) {
+			Customer c = opt.get();
+
+			Address add = c.getAddress();
+
+			if (add != null) {
+				order.setCustomer(c);
+				order.setAddress(add);
+
+				Order ord = orderRepo.save(order);
+
+				return ord;
+			} else {
+				throw new OrderException("Invalid customer address");
+			}
+		} else {
+			throw new OrderException("Invalid customer details");
+		}
+
 	}
 
 	@Override
-	public Order updateOrder(Order order) throws OrderException {
-		Optional<Order> opt = orderRepo.findById(order.getOrderId());
+	public Order updateOrder(Order order, Integer customerId) throws OrderException {
+		Optional<Customer> opt = customerRepo.findById(customerId);
 
 		if (opt.isPresent()) {
-			Order updatedOrder = orderRepo.save(order);
+			Customer c = opt.get();
 
-			return updatedOrder;
+			Address add = c.getAddress();
+
+			if (add != null) {
+				
+				Optional<Order> opt1 = orderRepo.findById(order.getOrderId());
+
+				if (opt1.isPresent()) {
+					order.setCustomer(c);
+					order.setAddress(add);
+					
+					Order updatedOrder = orderRepo.save(order);
+
+					return updatedOrder;
+				} else {
+					throw new OrderException("Invalid order details");
+				}
+			} else {
+				throw new OrderException("Invalid address");
+			}
 		} else {
-			throw new OrderException("Invalid order details");
+			throw new OrderException("Invalid customer details");
 		}
 	}
 
 	@Override
-	public Order removeOrder(Order order) throws OrderException {
-		Optional<Order> opt = orderRepo.findById(order.getOrderId());
-
-		if (opt.isPresent()) {
+	public Order removeOrder(Integer orderId) throws OrderException {
+		Optional<Order> opt = orderRepo.findById(orderId);
+		
+		if(opt.isPresent()) {
+			
 			Order ord = opt.get();
 
 			orderRepo.delete(ord);
@@ -95,24 +142,26 @@ public class OrderDaoImpl implements OrderService {
 
 	@Override
 	public List<Order> viewAllOrdersByuserId(String userId) throws OrderException {
-		Optional<Order> opt = orderRepo.findById(Integer.parseInt(userId));
-		
-		if(! opt.isPresent()) {
+		Optional<Customer> opt = customerRepo.findById(Integer.parseInt(userId));
+
+		if (!opt.isPresent()) {
 			throw new OrderException("Customer not present...");
 		}
-		
-		Order ord = opt.get();
+
+		Customer c = opt.get();
 		
 		List<Order> orders = orderRepo.findAll();
-		
+
 		List<Order> listOfOrdersByUserId = new ArrayList<>();
-		
-		for(Order o : orders) {
-			if(o.getOrderId() == ord.getOrderId()) {
-				listOfOrdersByUserId.add(o);
+
+		for (Order o : orders) {
+			if(o.getCustomer().getCustomerId() != null) {
+				if (o.getCustomer().getCustomerId() == c.getCustomerId()) {
+					listOfOrdersByUserId.add(o);
+				}
 			}
 		}
-				
+
 		if (listOfOrdersByUserId.size() == 0) {
 			throw new OrderException("No orders found from the user id: " + userId);
 		} else {

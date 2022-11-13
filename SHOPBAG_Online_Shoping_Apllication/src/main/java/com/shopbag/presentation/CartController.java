@@ -30,7 +30,7 @@ public class CartController {
 		
 		Cart nCart = cartService.addProductToCart(cart, cart.getProduct());
 		
-		return new ResponseEntity<Cart>(nCart, HttpStatus.ACCEPTED);
+		return new ResponseEntity<Cart>(nCart, HttpStatus.OK);
 		
 	}
 	

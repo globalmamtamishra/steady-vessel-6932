@@ -36,17 +36,17 @@ public class Order {
 	private String orderStatus;
 	
 //	@NotNull(message = "{customer.invalid}")
-//	@JsonIgnore
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Customer customer;
 	
 //	@NotNull(message = "{product.invalid}")
-//	@JsonIgnore
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "order")
 	private List<Product> productList;
 	
 //	@NotNull(message = "{address.invalid}")
-//	@JsonIgnore
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
 	

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopbag.exception.OrderException;
@@ -25,22 +26,22 @@ public class OrderController {
 	public OrderService os;
 
 	@PostMapping("/addOrder")
-	public ResponseEntity<Order> addOrderHandler(@RequestBody Order order) {
-		Order addedOrder = os.addOrder(order);
+	public ResponseEntity<Order> addOrderHandler(@RequestBody Order order, @RequestParam Integer customerId) throws OrderException {
+		Order addedOrder = os.addOrder(order, customerId);
 
 		return new ResponseEntity<Order>(addedOrder, HttpStatus.OK);
 	}
 
 	@PutMapping("/updateOrder")
-	public ResponseEntity<Order> updateOrderHandler(@RequestBody Order order) throws OrderException {
-		Order updatedOrder = os.updateOrder(order);
+	public ResponseEntity<Order> updateOrderHandler(@RequestBody Order order, @RequestParam Integer customerId) throws OrderException {
+		Order updatedOrder = os.updateOrder(order, customerId);
 
 		return new ResponseEntity<Order>(updatedOrder, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/deleteOrder")
-	public ResponseEntity<Order> removeOrderHandler(@RequestBody Order order) throws OrderException {
-		Order deletedOrder = os.removeOrder(order);
+	@DeleteMapping("/deleteOrder/{orderId}")
+	public ResponseEntity<Order> removeOrderHandler(@PathVariable Integer orderId) throws OrderException {
+		Order deletedOrder = os.removeOrder(orderId);
 
 		return new ResponseEntity<Order>(deletedOrder, HttpStatus.OK);
 	}

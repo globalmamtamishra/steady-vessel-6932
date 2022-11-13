@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.shopbag.exception.CartException;
 import com.shopbag.model.Cart;
+import com.shopbag.model.Customer;
 import com.shopbag.model.Product;
 import com.shopbag.repository.CartRepo;
+import com.shopbag.repository.ProductRepo;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -15,6 +17,9 @@ public class CartServiceImpl implements CartService {
 	@Autowired
 	private CartRepo cartRepo;
 
+	
+	
+	
 	@Override
 	public Cart addProductToCart(Cart cart, Product product) throws CartException {
 		
