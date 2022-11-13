@@ -37,7 +37,7 @@ public class CartController {
 	@DeleteMapping("/removeProductFromCart")
 	public ResponseEntity<Cart> removeProductFromCart(@Valid @RequestBody Cart cart) throws CartException {
 		
-		Cart nCart = cartService.removeProductFromCart(cart, cart.getProduct());
+		Cart nCart = cartService.removeProductFromCart(cart);
 		
 		return new ResponseEntity<Cart>(nCart, HttpStatus.OK);
 		
