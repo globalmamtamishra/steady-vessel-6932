@@ -16,3 +16,7 @@ Technologies:
 - Spring Data JPA (Hibernate)
 - Core Java
 
+ER-Diagram
+----------
+![ER-SHOPBAG pic](https://user-images.githubusercontent.com/103960690/201526943-c77b186c-5fd8-407b-957f-bd5c5102335a.png)
+
