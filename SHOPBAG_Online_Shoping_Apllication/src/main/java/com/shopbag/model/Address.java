@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,9 +45,11 @@ public class Address {
 //    @NotNull(message = "pincode cannot be left blank")
 	private String pincode;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="address")
 	private List<Customer> Customer;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy="address")
 	private List<Order> order;
 }

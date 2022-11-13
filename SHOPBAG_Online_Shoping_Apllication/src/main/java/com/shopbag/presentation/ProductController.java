@@ -33,7 +33,7 @@ public class ProductController {
 		
 		List<Product> allPdts = pService.viewAllProduct();
 		
-		return new ResponseEntity<List<Product>>(allPdts, HttpStatus.FOUND);
+		return new ResponseEntity<List<Product>>(allPdts, HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
@@ -54,7 +54,7 @@ public class ProductController {
 	public ResponseEntity<Product> viewProductHandler(@PathVariable Integer Id) throws ProductException{
 		Product pdt = pService.viewProduct(Id);
 		
-		return new ResponseEntity<Product>(pdt, HttpStatus.FOUND);
+		return new ResponseEntity<Product>(pdt, HttpStatus.OK);
 	}
 	
 	
@@ -62,7 +62,7 @@ public class ProductController {
 	public ResponseEntity<List<Product>> viewProductByCategoryHandler(@RequestParam(value="category") String cname) throws ProductException{
 		List<Product> allPdt = pService.viewProductByCategory(cname);
 		
-		return new ResponseEntity<List<Product>>(allPdt, HttpStatus.FOUND);
+		return new ResponseEntity<List<Product>>(allPdt, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{Id}")

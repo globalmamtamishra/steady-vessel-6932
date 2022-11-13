@@ -15,7 +15,7 @@ public interface AddressService {
 	public Address updateAddress(Address address) throws AddressException;
 	
 	
-	public Address removeAddress(Address address)throws AddressException;
+	public Address removeAddress(Integer address)throws AddressException;
 	public List<Address> viewAllAddress() throws AddressException;
 	
 	public Address viewAddress(Integer customerId) throws AddressException;

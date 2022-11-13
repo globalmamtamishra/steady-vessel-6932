@@ -37,7 +37,7 @@ public class CustomerContorller {
 	
 	
 	@PutMapping("/customer/{key}")
-	public ResponseEntity<Customer> updateCustomerHandler(@Valid @RequestBody Customer cust, @PathVariable String key) throws CustomerException{
+	public ResponseEntity<Customer> updateCustomerHandler( @RequestBody Customer cust, @PathVariable String key) throws CustomerException{
 		
 		Customer updateCustomer = cService.updateCustomer(cust, key);
 		

@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,21 +29,24 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer orderId;
 	
-	@NotNull(message = "{date.invalid}")
+//	@NotNull(message = "{date.invalid}")
 	private LocalDate orderDate;
 	
-	@NotNull(message = "{status.invalid}")
+//	@NotNull(message = "{status.invalid}")
 	private String orderStatus;
 	
-	@NotNull(message = "{customer.invalid}")
+//	@NotNull(message = "{customer.invalid}")
+//	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Customer customer;
 	
-	@NotNull(message = "{product.invalid}")
+//	@NotNull(message = "{product.invalid}")
+//	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "order")
 	private List<Product> productList;
 	
-	@NotNull(message = "{address.invalid}")
+//	@NotNull(message = "{address.invalid}")
+//	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
