@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopbag.exception.CustomerException;
@@ -45,19 +46,19 @@ public class CustomerContorller {
 	}
 	
 	
-	@DeleteMapping("/customers/{key}")
-	public ResponseEntity<Customer> removeCustomerHandler(@RequestBody Customer cust, @PathVariable String key) throws CustomerException{
+	@DeleteMapping("/customers/{custId}")
+	public ResponseEntity<Customer> removeCustomerHandler(@PathVariable Integer custId, @RequestParam("key") String key) throws CustomerException{
 		
-		Customer removeCustomer = cService.removeCustomer(cust, key);
+		Customer removeCustomer = cService.removeCustomer(custId, key);
 		
 		return new ResponseEntity<Customer>(removeCustomer, HttpStatus.CREATED);
 	}
 	
 	
-	@GetMapping("/customers")
-	public ResponseEntity<Customer> viewCustomerHandler(@PathVariable Customer cust) throws CustomerException{
+	@GetMapping("/customers/{custId}")
+	public ResponseEntity<Customer> viewCustomerHandler(@PathVariable Integer custId) throws CustomerException{
 		
-		Customer viewCustomer = cService.viewCustomer(cust);
+		Customer viewCustomer = cService.viewCustomer(custId);
 		
 		return new ResponseEntity<Customer>(viewCustomer, HttpStatus.CREATED);
 	}
