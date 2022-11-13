@@ -29,7 +29,7 @@ public class AddressController {
 	private AddressService addressService;
 	
 	@PostMapping("/saveaddress")
-	public ResponseEntity<Address> addAddress( @RequestBody Address address, @RequestBody Order order, @RequestBody Customer customer)throws AddressException{
+	public ResponseEntity<Address> addAddress( @RequestBody Address address)throws AddressException{
 		
 		
 		Address savedAddress= addressService.addAddress(address);
@@ -40,7 +40,7 @@ public class AddressController {
 	}
 	
 	@PutMapping("/updateaddress")
-	public ResponseEntity<Address> updateAddress(@Valid @RequestBody Address address) throws AddressException{
+	public ResponseEntity<Address> updateAddress( @RequestBody Address address) throws AddressException{
 		
 		
 		Address updatedAddress= addressService.updateAddress(address);
@@ -73,8 +73,8 @@ public class AddressController {
 	
 	
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<Address> deleteaddress(@RequestBody Address address) throws AddressException{
+	@DeleteMapping("/delete/{Id}")
+	public ResponseEntity<Address> deleteaddress(@PathVariable("Id")Integer address) throws AddressException{
 		
 		
 	    Address viewAddress= addressService.removeAddress(address);		

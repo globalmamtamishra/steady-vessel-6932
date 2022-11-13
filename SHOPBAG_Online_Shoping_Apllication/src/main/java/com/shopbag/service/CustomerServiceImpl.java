@@ -39,8 +39,8 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		return customerRepo.save(cust);
 		
-		
 	}
+	
 
 	@Override
 	public Customer updateCustomer(Customer cust, String key) throws CustomerException {
@@ -58,26 +58,25 @@ public class CustomerServiceImpl implements CustomerService {
 			throw new CustomerException("Invalid customer details, plaease login first!");
 		}
 		
-		
 	}
+	
 
 	@Override
-	public Customer removeCustomer(Customer cust, String key) throws CustomerException {
+	public Customer removeCustomer(Integer custId, String key) throws CustomerException {
 		
 		CurrentUserSession loggedInUser = sessionRepo.findByUuid(key);
 		
 		if(loggedInUser == null)
 			throw new CustomerException("Please provide a valid key to update customer!");
 		
+		Optional<Customer> customerOpt = customerRepo.findById(custId);
 		
-		if(cust.getCustomerId() == loggedInUser.getUserId()) {
+		
+		if(custId == loggedInUser.getUserId()) {
 			
-			List<Customer> customers = new ArrayList<>();
-			customers.add(cust);
+			customerRepo.delete(customerOpt.get());
 			
-			customerRepo.delete(cust);
-			
-			return customers.get(0);
+			return customerOpt.get();
 		}
 		else {
 			throw new CustomerException("Invalid customer details, plaease login first!");
@@ -87,15 +86,15 @@ public class CustomerServiceImpl implements CustomerService {
 	
 
 	@Override
-	public Customer viewCustomer(Customer cust) throws CustomerException {
+	public Customer viewCustomer(Integer custId) throws CustomerException {
 		
-		Optional<Customer> custOpt = customerRepo.findById(cust.getCustomerId());
+		Optional<Customer> custOpt = customerRepo.findById(custId);
 		
 		if(custOpt.isPresent())
 			return custOpt.get();
 		
 		else
-			throw new CustomerException("Customer not found with this customerId "+cust.getCustomerId());
+			throw new CustomerException("Customer not found with this customerId "+custId);
 	}
 
 	@Override
@@ -113,8 +112,6 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 	}
 
-	
-	
 	
 	
 }

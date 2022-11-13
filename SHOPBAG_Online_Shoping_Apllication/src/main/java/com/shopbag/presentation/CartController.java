@@ -17,12 +17,13 @@ import com.shopbag.exception.CartException;
 import com.shopbag.model.Cart;
 import com.shopbag.model.Product;
 import com.shopbag.service.CartService;
+import com.shopbag.service.CartServiceImpl;
 
 @RestController
 public class CartController {
 	
 	@Autowired
-	private CartService cartService;
+	private CartServiceImpl cartService;
 	
 	@PostMapping("/addProductToCart")
 	public ResponseEntity<Cart> addProductToCart(@RequestBody Cart cart) throws CartException {
@@ -34,18 +35,18 @@ public class CartController {
 	}
 	
 	@DeleteMapping("/removeProductFromCart")
-	public ResponseEntity<Cart> removeProductFromCart(@Valid @RequestBody Cart cart, @Valid @RequestBody Product product) throws CartException {
+	public ResponseEntity<Cart> removeProductFromCart(@Valid @RequestBody Cart cart) throws CartException {
 		
-		Cart nCart = cartService.removeProductFromCart(cart, product);
+		Cart nCart = cartService.removeProductFromCart(cart, cart.getProduct());
 		
 		return new ResponseEntity<Cart>(nCart, HttpStatus.OK);
 		
 	}
 	
 	@PutMapping("/updateProductQuantity")
-	public ResponseEntity<Cart> updateProductQuantity(@Valid @RequestBody Cart cart, @Valid @RequestBody Product product) throws CartException{
+	public ResponseEntity<Cart> updateProductQuantity(@Valid @RequestBody Cart cart) throws CartException{
 		
-		Cart nCart = cartService.plusProductQuantity(cart, product);
+		Cart nCart = cartService.plusProductQuantity(cart, cart.getProduct());
 		
 		return new ResponseEntity<Cart>(nCart, HttpStatus.ACCEPTED);
 		

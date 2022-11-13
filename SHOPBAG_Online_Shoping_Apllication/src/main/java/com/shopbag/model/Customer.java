@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,27 +30,30 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer customerId;
 	
-	//@NotNull(message = "firstName required to fill")
+	@NotNull(message = "firstName required to fill")
 	private String firstName;
 	
-	//@NotNull(message = "lastname required to fill")
+	@NotNull(message = "lastname required to fill")
 	private String lastname;
 	
-	//@NotNull(message = "mobileNumber required to fill")
+	@NotNull(message = "mobileNumber required to fill")
 	private String mobileNumber;
 	
-	//@NotNull(message = "email required to fill")
+	@NotNull(message = "email required to fill")
 	private String email;
 	
+	@NotNull(message = "password required to fill")
+	private String password;
 	
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Order> order = new ArrayList<>();
 	
-	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	private Cart cart;
 	

@@ -1,9 +1,8 @@
 package com.shopbag.presentation;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,16 +45,20 @@ public class OrderController {
 		return new ResponseEntity<Order>(deletedOrder, HttpStatus.OK);
 	}
 
-	@GetMapping("/viewOrder")
-	public ResponseEntity<Order> viewOrderHandler(@RequestBody Order order) throws OrderException {
-		Order ord = os.viewOrder(order);
+	@GetMapping("/viewOrder/{orderId}")
+	public ResponseEntity<Order> viewOrderHandler(@PathVariable Integer orderId) throws OrderException {
+		Order ord = os.viewOrder(orderId);
 
 		return new ResponseEntity<Order>(ord, HttpStatus.OK);
 	}
 
 	@GetMapping("/viewOrders/{date}")
-	public ResponseEntity<List<Order>> viewAllOrdersHandler(@PathVariable("date") LocalDate date) throws OrderException {
-		List<Order> listOfOrders = os.viewAllOrders(date);
+	public ResponseEntity<List<Order>> viewAllOrdersHandler(@PathVariable("date") String date) throws OrderException {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		  LocalDate date1 = LocalDate.parse(date, formatter);
+		
+		List<Order> listOfOrders = os.viewAllOrders(date1);
 
 		return new ResponseEntity<List<Order>>(listOfOrders, HttpStatus.OK);
 	}
@@ -67,8 +70,8 @@ public class OrderController {
 		return new ResponseEntity<List<Order>>(ordersListByLocation, HttpStatus.OK);
 	}
 
-	@GetMapping("/viewOrdersByUserId")
-	public ResponseEntity<List<Order>> viewAllOrdersByuserIdHandler(@RequestBody String userId) throws OrderException {
+	@GetMapping("/viewOrdersByUserId/{userId}")
+	public ResponseEntity<List<Order>> viewAllOrdersByuserIdHandler(@PathVariable String userId) throws OrderException {
 		List<Order> ordersListByUserId = os.viewAllOrdersByuserId(userId);
 
 		return new ResponseEntity<List<Order>>(ordersListByUserId, HttpStatus.OK);

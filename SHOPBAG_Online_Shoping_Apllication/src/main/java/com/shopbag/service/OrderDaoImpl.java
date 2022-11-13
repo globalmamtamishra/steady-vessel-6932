@@ -59,8 +59,8 @@ public class OrderDaoImpl implements OrderService {
 	}
 
 	@Override
-	public Order viewOrder(Order order) throws OrderException {
-		Optional<Order> opt = orderRepo.findById(order.getOrderId());
+	public Order viewOrder(Integer orderId) throws OrderException {
+		Optional<Order> opt = orderRepo.findById(orderId);
 
 		if (opt.isPresent()) {
 			Order ord = opt.get();
@@ -95,20 +95,20 @@ public class OrderDaoImpl implements OrderService {
 
 	@Override
 	public List<Order> viewAllOrdersByuserId(String userId) throws OrderException {
-		Optional<Customer> opt = customerRepo.findById(Integer.parseInt(userId));
+		Optional<Order> opt = orderRepo.findById(Integer.parseInt(userId));
 		
 		if(! opt.isPresent()) {
 			throw new OrderException("Customer not present...");
 		}
 		
-		Customer c = opt.get();
+		Order ord = opt.get();
 		
 		List<Order> orders = orderRepo.findAll();
 		
 		List<Order> listOfOrdersByUserId = new ArrayList<>();
 		
 		for(Order o : orders) {
-			if(o.getCustomer().getCustomerId() == c.getCustomerId()) {
+			if(o.getOrderId() == ord.getOrderId()) {
 				listOfOrdersByUserId.add(o);
 			}
 		}

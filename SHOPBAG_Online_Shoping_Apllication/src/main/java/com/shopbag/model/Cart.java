@@ -12,82 +12,35 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull; 
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor; 
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String cartId;
+	private Integer cartId;
 	
 //	@NotNull(message = "Customer details cannot be left blank")
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Customer customer;
 	
 //	@NotNull(message = "Please select atleast one product")
-//	@JoinColumn(name = "")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cart")
 	private List<Product> products;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Product product;
-	
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public Cart() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Cart(String cartId, Customer customer, List<Product> products) {
-		super();
-		this.cartId = cartId;
-		this.customer = customer;
-		this.products = products;
-	}
-
-	public String getCartId() {
-		return cartId;
-	}
-
-	public void setCartId(String cartId) {
-		this.cartId = cartId;
-	}
-
-	public Customer getcustomer() {
-		return customer;
-	}
-
-	public void setcustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	@Override
-	public String toString() {
-		return "Cart [cartId=" + cartId + ", customer=" + customer + ", products=" + products + "]";
-	}
 
 	
 }

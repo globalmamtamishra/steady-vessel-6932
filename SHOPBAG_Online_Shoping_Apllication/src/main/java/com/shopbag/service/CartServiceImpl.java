@@ -1,6 +1,7 @@
 package com.shopbag.service;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shopbag.exception.CartException;
@@ -11,6 +12,7 @@ import com.shopbag.repository.CartRepo;
 @Service
 public class CartServiceImpl implements CartService {
 	
+	@Autowired
 	private CartRepo cartRepo;
 
 	@Override

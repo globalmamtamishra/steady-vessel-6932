@@ -45,16 +45,18 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public Address removeAddress(Address address) throws AddressException {
+	public Address removeAddress(Integer address) throws AddressException {
 
-		Optional<Address> ad = addressDao.findById(address.getAddressId());
+		Optional<Address> ad = addressDao.findById(address);
 
 		if (ad.isPresent()) {
-			addressDao.delete(address);
-			return address;
+			Address ad1=ad.get();
+			addressDao.delete(ad1);
+			
+			return ad1;
 		}
 
-		throw new AddressException("address not found with id " + address.getAddressId());
+		throw new AddressException("address not found with id " + address);
 
 	}
 
