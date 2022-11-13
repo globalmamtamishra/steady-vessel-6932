@@ -37,19 +37,15 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart removeProductFromCart(Cart cart, Product product) throws CartException {
+	public Cart removeProductFromCart(Cart cart) throws CartException {
 		
 		Optional<Cart> opt = cartRepo.findById(cart.getCartId()); // findbyId return optional
 		
 		if(opt.isPresent()) {
-			Cart nCart = opt.get();
 			
-			if(nCart.getProducts().contains(product)) {
-				nCart.getProducts().remove(product);
-				return nCart;
-			} else {
-				throw new CartException("Product is not present in your cart.");
-			}
+			cartRepo.delete(cart);
+			
+			return cart;
 			
 		} else {
 			throw new CartException("Cart details is invalid.");
