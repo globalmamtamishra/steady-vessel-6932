@@ -17,12 +17,12 @@ public class OnlineshoppingApplication {
 		SpringApplication.run(OnlineshoppingApplication.class, args);
 	}
 
-	@Bean
-	public LocalValidatorFactoryBean validator(MessageSource ms) {
-		LocalValidatorFactoryBean lvfb = new LocalValidatorFactoryBean();
-		lvfb.setValidationMessageSource(ms);
-		
-		return lvfb;
-	}
+    @Bean
+    LocalValidatorFactoryBean validator(MessageSource ms) {
+        LocalValidatorFactoryBean lvfb = new LocalValidatorFactoryBean();
+        lvfb.setValidationMessageSource(ms);
+
+        return lvfb;
+    }
 
 }

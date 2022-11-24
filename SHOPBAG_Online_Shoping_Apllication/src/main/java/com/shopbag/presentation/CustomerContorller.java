@@ -55,12 +55,12 @@ public class CustomerContorller {
 	}
 	
 	
-	@GetMapping("/customers/{custId}")
+	@GetMapping("/customer/{custId}")
 	public ResponseEntity<Customer> viewCustomerHandler(@PathVariable Integer custId) throws CustomerException{
 		
 		Customer viewCustomer = cService.viewCustomer(custId);
 		
-		return new ResponseEntity<Customer>(viewCustomer, HttpStatus.CREATED);
+		return new ResponseEntity<Customer>(viewCustomer, HttpStatus.OK);
 	}
 	
 	
@@ -69,7 +69,7 @@ public class CustomerContorller {
 		
 		List<Customer> viewAllCustomer = cService.viewAllCustomer(location);
 		
-		return new ResponseEntity<List<Customer>>(viewAllCustomer, HttpStatus.CREATED);
+		return new ResponseEntity<List<Customer>>(viewAllCustomer, HttpStatus.OK);
 	}
 	
 	

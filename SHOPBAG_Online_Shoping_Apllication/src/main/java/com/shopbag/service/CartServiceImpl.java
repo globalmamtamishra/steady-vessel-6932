@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 
 import com.shopbag.exception.CartException;
 import com.shopbag.model.Cart;
+import com.shopbag.model.Customer;
 import com.shopbag.model.Product;
 import com.shopbag.repository.CartRepo;
+import com.shopbag.repository.ProductRepo;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -15,6 +17,9 @@ public class CartServiceImpl implements CartService {
 	@Autowired
 	private CartRepo cartRepo;
 
+	
+	
+	
 	@Override
 	public Cart addProductToCart(Cart cart, Product product) throws CartException {
 		
@@ -32,19 +37,15 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart removeProductFromCart(Cart cart, Product product) throws CartException {
+	public Cart removeProductFromCart(Cart cart) throws CartException {
 		
 		Optional<Cart> opt = cartRepo.findById(cart.getCartId()); // findbyId return optional
 		
 		if(opt.isPresent()) {
-			Cart nCart = opt.get();
 			
-			if(nCart.getProducts().contains(product)) {
-				nCart.getProducts().remove(product);
-				return nCart;
-			} else {
-				throw new CartException("Product is not present in your cart.");
-			}
+			cartRepo.delete(cart);
+			
+			return cart;
 			
 		} else {
 			throw new CartException("Cart details is invalid.");

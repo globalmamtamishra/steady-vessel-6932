@@ -77,10 +77,31 @@ public class GlobalExceptionHandler {
 	
 	
 	
+	@ExceptionHandler(ProductException.class)
+	public ResponseEntity<MyErrorDetail> myEhandlerProduct(ProductException e, WebRequest req) {
+		
+		MyErrorDetail err = new MyErrorDetail(LocalDateTime.now(),e.getMessage(),req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetail>(err, HttpStatus.BAD_REQUEST);
+	}
 	
 	
+	@ExceptionHandler(AddressException.class)
+	public ResponseEntity<MyErrorDetail> myEhandlerAddress(AddressException e, WebRequest req) {
+		
+		MyErrorDetail err = new MyErrorDetail(LocalDateTime.now(),e.getMessage(),req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetail>(err, HttpStatus.BAD_REQUEST);
+	}
 	
 	
+	@ExceptionHandler(CartException.class)
+	public ResponseEntity<MyErrorDetail> myEhandlerCart(CartException e, WebRequest req) {
+		
+		MyErrorDetail err = new MyErrorDetail(LocalDateTime.now(),e.getMessage(),req.getDescription(false));
+		
+		return new ResponseEntity<MyErrorDetail>(err, HttpStatus.BAD_REQUEST);
+	}
 	
 	
 	

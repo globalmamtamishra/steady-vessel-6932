@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.shopbag.exception.LoginException;
 import com.shopbag.model.CurrentUserSession;
@@ -14,7 +15,7 @@ import com.shopbag.repository.CurrentUserSessionRepo;
 import com.shopbag.repository.CustomerRepo;
 
 import net.bytebuddy.utility.RandomString;
-
+@Service
 public class LoginServiceImpl implements LoginService {
 
 	@Autowired

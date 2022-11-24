@@ -12,4 +12,9 @@ import com.shopbag.model.Customer;
 @Repository
 public interface AddressDao extends JpaRepository<Address,Integer> {
 	
+	
+	
+	@Query("select c.address from Customer c where c.customerId = ?1")
+	public Address findByCustomerId(Integer customerId);
+	
 }

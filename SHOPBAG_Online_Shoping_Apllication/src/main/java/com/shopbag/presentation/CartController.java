@@ -30,14 +30,14 @@ public class CartController {
 		
 		Cart nCart = cartService.addProductToCart(cart, cart.getProduct());
 		
-		return new ResponseEntity<Cart>(nCart, HttpStatus.ACCEPTED);
+		return new ResponseEntity<Cart>(nCart, HttpStatus.OK);
 		
 	}
 	
 	@DeleteMapping("/removeProductFromCart")
 	public ResponseEntity<Cart> removeProductFromCart(@Valid @RequestBody Cart cart) throws CartException {
 		
-		Cart nCart = cartService.removeProductFromCart(cart, cart.getProduct());
+		Cart nCart = cartService.removeProductFromCart(cart);
 		
 		return new ResponseEntity<Cart>(nCart, HttpStatus.OK);
 		

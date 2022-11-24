@@ -7,13 +7,17 @@ import org.springframework.stereotype.Service;
 
 import com.shopbag.exception.AddressException;
 import com.shopbag.model.Address;
+import com.shopbag.model.Customer;
 import com.shopbag.repository.AddressDao;
+import com.shopbag.repository.CustomerRepo;
 
 @Service
 public class AddressServiceImpl implements AddressService {
 
 	@Autowired
 	private AddressDao addressDao;
+	@Autowired
+	private CustomerRepo customerDao;
 
 	@Override
 	public Address addAddress(Address address) throws AddressException {
@@ -41,7 +45,7 @@ public class AddressServiceImpl implements AddressService {
 
 		}
 
-		return addressDao.save(newAddress.get());
+		return addressDao.save(address);
 	}
 
 	@Override
@@ -75,16 +79,14 @@ public class AddressServiceImpl implements AddressService {
 	@Override
 	public Address viewAddress(Integer customerId) throws AddressException {
 
-		Optional<Address> customer = addressDao.findById(customerId);
+		Address addressOpt = addressDao.findByCustomerId(customerId);
 
-		if (!customer.isPresent()) {
+		if (addressOpt == null) {
 
 			throw new AddressException("No customer found with id : " + customerId);
 		}
 
-		Address address = customer.get();
-
-		return address;
+		return addressOpt;
 	}
 
 }
