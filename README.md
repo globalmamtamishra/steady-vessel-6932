@@ -15,6 +15,8 @@ Technologies:
 - Spring Boot
 - Spring Data JPA (Hibernate)
 - Core Java
+- MySQL
+- Swagger-UI
 ----------------------------
 Online Shopping Application :
 ----------------------------
